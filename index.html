@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rick and Morty Trivia Game</title>
+		<link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+		<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+</head>
+<body>
+	<div class="container">
+		<div class="display-results" style="display:none">YEAHYAEHYAHFE</div>
+		<div class="timer hide-me"></div><br>
+		<div class="question-box hide-me">???</div><br>
+		<div class="answers a1 hide-me">a</div>
+		<div class="answers a2 hide-me">b</div>
+		<div class="answers a3 hide-me">c</div>
+		<div class="answers a4 hide-me">d</div>
+	</div>
+	<script>
+
+		var time = 5; //change to 30 when done, 5 for debug
+		$('.timer').html(time);
+
+		//Question 1
+		var q1 = 'Which character does Beth shoot in the episode "Total Rickall"?';
+		var q1a1 = "Rick"; 
+		var q1a2 = "Jerry";
+		var q1a3 = "Mr.Poopybutthole";
+		var q1a4 = "Squanchy";
+
+		//Question 2
+		var q2 = 'Which universe are Rick and Morty originally from?';
+		var q2a1 = 'C-132';
+		var q2a2 = 'C-137';
+		var q2a3 = 'D-99';
+		var q2a4 = 'Microverse';
+
+		//Question 3
+		var q3;
+		var q3a1;
+		var q3a2;
+		var q3a3;
+		var q3a4;
+
+		//Question 4
+		var q4;
+		var q4a1;
+		var q4a2;
+		var q4a3;
+		var q4a4;
+
+
+		//generates new questions and answers
+		function triviaMaker(){
+			console.log("triviaMaker Activated")
+			function htmlReplacer(v,w,x,y,z){
+				$('.question-box').html(v);   //x is replacing text
+				$('.a1').html(w);
+				$('.a2').html(x);
+				$('.a3').html(y);
+				$('.a4').html(z);
+			}
+			htmlReplacer(q1,q1a1,q1a2,q1a3,q1a4);
+		}
+
+		function resultTimer(){
+			console.log('resultTimer Activated');
+
+			timerReset();
+			time = 5; //change to 30 when done, 5 for debug
+
+		} //resultTimer()
+
+
+		function timerReset(){
+			//setInterval(function executed,time)
+			var timeInterval = setInterval(myTimer,1000);
+
+			function myTimer(nextQuestion){
+				time--;
+				console.log(time);
+				$('.timer').html(time);
+
+				//conditional to end timer
+				if (time === 0){
+					clearInterval(timeInterval);
+					$('.display-results').html("Correct Answer is ______"); //replace inside html with text that fills in blank with correct answer
+					$('.display-results').css('display','block');
+					$('.hide-me').css('display','none');
+					console.log("sweet");
+
+					setTimeout(resultTimer,3000);
+				} 
+			} //myTimer()
+		} //timerReset()
+
+
+
+
+
+		triviaMaker(); //1st question
+		timerReset(); //Resets timer
+
+
+		
+
+		//function() vs just function. immediate execution? https://stackoverflow.com/questions/11837562/javascript-settimeout-wont-wait-to-execute
+
+		//create 2 onclicks, one for incorrect answers, the other for the correct answer. prob add a class to the correct answer then remove it
+
+	</script>
+
+</body>
+</html>
