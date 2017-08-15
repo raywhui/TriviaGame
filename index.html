@@ -9,97 +9,223 @@
 <body>
 	<div class="container">
 		<div class="display-results" style="display:none">YEAHYAEHYAHFE</div>
-		<div class="timer hide-me"></div><br>
-		<div class="question-box hide-me">???</div><br>
-		<div class="answers a1 hide-me">a</div>
-		<div class="answers a2 hide-me">b</div>
-		<div class="answers a3 hide-me">c</div>
-		<div class="answers a4 hide-me">d</div>
+		<button class="reset-btn" style="display:none">Do it again.</button>
+		<div class="timer not-results"></div><br>
+		<div class="question-box not-results">???</div><br>
+		<div class="answers a1 not-results">a</div>
+		<div class="answers a2 not-results">b</div>
+		<div class="answers a3 not-results">c</div>
+		<div class="answers a4 not-results">d</div>
 	</div>
 	<script>
-
-		var time = 5; //change to 30 when done, 5 for debug
+		var correct = 0;
+		var incorrect = 0;
+		var time = 30; //change to 30 when done, 5 for debug
 		$('.timer').html(time);
 
 		//Question 1
-		var q1 = 'Which character does Beth shoot in the episode "Total Rickall"?';
-		var q1a1 = "Rick"; 
-		var q1a2 = "Jerry";
-		var q1a3 = "Mr.Poopybutthole";
-		var q1a4 = "Squanchy";
+		var question1 = {
+			q: 'Which character does Beth shoot in the episode "Total Rickall"?',
+			a1: "Rick", 
+			a2: "Jerry",
+			a3: "Mr.Poopybutthole", //correct
+		  a4: "Squanchy",
+		  ans: "Mr.Poopybutthole"
+		};
+
+		
+		console.log(question1);
 
 		//Question 2
-		var q2 = 'Which universe are Rick and Morty originally from?';
-		var q2a1 = 'C-132';
-		var q2a2 = 'C-137';
-		var q2a3 = 'D-99';
-		var q2a4 = 'Microverse';
+		var question2 = {
+		  q:'Which universe are Rick and Morty originally from?',
+		  a1: 'C-132',
+		  a2: 'C-137', //correct
+		  a3: 'D-99',
+		  a4: 'Microverse',
+		  ans: 'C-137'
+		};
+		
+		console.log(question2);
 
 		//Question 3
-		var q3;
-		var q3a1;
-		var q3a2;
-		var q3a3;
-		var q3a4;
+		var question3 = {
+		 q:'What show was the character Mr.Jellybean based on?',
+		 a1:'Unbelieveable Tales!', //correct
+		 a2:'Mr.Bean',
+		 a3:'Back to the Future',
+		 a4:'The Adventures of Doc and Marty',
+		 ans:'Unbelieveable Tales!'
+		};
+
+		console.log(question3);
+
 
 		//Question 4
-		var q4;
-		var q4a1;
-		var q4a2;
-		var q4a3;
-		var q4a4;
+		var question4 = {
+		  q: "What does Rick's catchphrase 'Wubba Lubba Dub Dub' mean?",
+		  a1: 'F*** you, God! Not today bitch!',
+		  a2: "I-I-I'll go out and find some more of that Mulan Szechuan teriyaki dipping sauce, Morty!",
+		  a3: 'Keep Summer safe.',
+		  a4: 'I am in great pain. Please help me.',//correct
+		  ans:'I am in great pain. Please help me.'
+		};
+
+		console.log(question4);
+		
+		//Question 5
+		var question5 = { 
+			q: 'What brand of top saves Summer and Rick in the episode "Raising Gazorpazorp"?',
+			a1: "Marc Jacobs", //correct
+			a2: "Versace",
+			a3: "Coco Chanel",
+			a4: "Ralph Lauren",
+			ans: "Marc Jacobs"
+		};
+
+		//Question 6
+		var question6 = {
+			q: 'In the episode "A Rickle in Time", what unit of measure does Rick use to tell the difference between Morty and Summer?',
+			a1: "Age",
+			a2: "Height",
+			a3: "Pain in my ass", //correct
+			a4: "Pieces of shit",
+			ans: "Pain in my ass"
+		};
+
+		//Question 7
+		var question7 = {
+			q: 'What game does Rick and Morty play after receiving 3000 Flurbos in the episode "Mortynight Run"?',
+			a1: "Meeseeks and Destroy",
+			a2: "Roy: A Life Well Lived", //correct
+			a3: "Blipz and Chitz",
+			a4: "Krombopulos Michael",
+			ans: "Roy: A Life Well Lived"		
+		};
+
+		//Question 8
+		var question8 = {
+			q: "What is my purpose?",
+			a1: "42",
+			a2: "You pass butter.", //correct
+			a3: "Welcome to the club, pal.",
+			a4: "I am not programmed for friendship.",
+			ans: "You pass butter."			
+		};
+
+		//Question+Answer Switcher
+		var qCount = 0;
+		function qaSwitcher(){
+			question1 = question2;
+			question2 = question3;
+			question3 = question4;
+			question4 = question5;
+			question5 = question6;
+			question6 = question7;
+			question7 = question8;
+			qCount++;
+		};
+		
+		//nested array?
+		//possible nested for loop to push previous array into other array?
+			// for (var i = qaArray.length-1; i >= 0; i--) {
+			// 	qaArray[i] = nextArray[i];
+
+			// 	//check to see if list changes or breaks.
+			// }
 
 
 		//generates new questions and answers
-		function triviaMaker(){
-			console.log("triviaMaker Activated")
-			function htmlReplacer(v,w,x,y,z){
-				$('.question-box').html(v);   //x is replacing text
-				$('.a1').html(w);
-				$('.a2').html(x);
-				$('.a3').html(y);
-				$('.a4').html(z);
-			}
-			htmlReplacer(q1,q1a1,q1a2,q1a3,q1a4);
+		function htmlReplacer(v,w,x,y,z){
+			$('.question-box').html(v);   //x is replacing text
+			$('.a1').html(w);
+			$('.a2').html(x);
+			$('.a3').html(y);
+			$('.a4').html(z);
 		}
 
-		function resultTimer(){
-			console.log('resultTimer Activated');
+		var resultsOnOff
+		//Results screen
+		function resultScreen(){
+			qaSwitcher();
+			console.log('?#: ' + qCount);
+			//reveals results + hides questions and answers.
+			$('.display-results').css('display','block');
+			$('.not-results').css('display','none');
+			console.log("sweet");
 
-			timerReset();
-			time = 5; //change to 30 when done, 5 for debug
+			resultsOnOff = setTimeout(timerReset,5000);//sets delay until recursion
+		};
+		
 
-		} //resultTimer()
+		function timerReset(){ //loop to run timer to 0, then wait few seconds to start countdown all over again. AKA recursive function
+			htmlReplacer(question1.q, question1.a1, question1.a2, question1.a3, question1.a4, question1.ans); //1st question
+			console.log('htmlReplacer Activated');
+			console.log(question1.ans);
+			time = 5;  //change to 30 when done, 5 for debug
+			$('.timer').html(time);
 
+			//reveals questions and answers + hides results.
+			$('.display-results').css('display','none');
+			$('.not-results').css('display','block');
 
-		function timerReset(){
 			//setInterval(function executed,time)
 			var timeInterval = setInterval(myTimer,1000);
 
-			function myTimer(nextQuestion){
+			function myTimer(){ //base timer, use myTimer(nextQuestion) to fill in future questions,answers, and results.
 				time--;
-				console.log(time);
+				console.log('Countdown: ' + time);
 				$('.timer').html(time);
 
 				//conditional to end timer
 				if (time === 0){
 					clearInterval(timeInterval);
-					$('.display-results').html("Correct Answer is ______"); //replace inside html with text that fills in blank with correct answer
-					$('.display-results').css('display','block');
-					$('.hide-me').css('display','none');
-					console.log("sweet");
+					incorrect++;
+					$('.display-results').html("Correct Answer is " + question1.ans); //replace inside html with text that fills in blank with correct answer.
+					resultScreen();
 
-					setTimeout(resultTimer,3000);
-				} 
-			} //myTimer()
-		} //timerReset()
+				}; //if(time === 0) 
+
+				//Final results screen after all questions done
+				if (qCount === 8){ 
+					clearTimeout(resultsOnOff);
+					$('.display-results').html(
+							"<h1> Final Results: </h1>" +
+							"<p> Ricks: " + correct + "</p>" +
+							"<p> Mortys: " + incorrect + "</p>");
+					$('.reset-btn').css("display","none");
+					console.log('yaay');
+				};
+
+			}; //myTimer()
+		}; //timerReset()
+
+
+		$(document).ready(function(){
+			$('.answers').on('click', function(){
+				console.log("YEEZYYEEZy");
+				//checks if correct answer
+				if(($(this)[0].innerHTML || $(this)[1].innerHTML || $(this)[2].innerHTML || $(this)[3].innerHTML) === question1.ans){
+					correct++;
+					console.log('correct!@!@#!@#');
+
+					$('.display-results').html("Good job, Morty.");
+					resultScreen();
+
+				}
+				else{
+					$('.display-results').html(". Correct Answer is " + question1.ans);
+						incorrect++;
+						resultScreen();
+				}
+
+
+			});//$('.answer').on('click'
+		});
 
 
 
-
-
-		triviaMaker(); //1st question
-		timerReset(); //Resets timer
+		timerReset(); //Initiates timer
 
 
 		
@@ -107,6 +233,11 @@
 		//function() vs just function. immediate execution? https://stackoverflow.com/questions/11837562/javascript-settimeout-wont-wait-to-execute
 
 		//create 2 onclicks, one for incorrect answers, the other for the correct answer. prob add a class to the correct answer then remove it
+			//adds class, removes itself later
+
+		//possibly bubblesort the questions into the variables?
+
+
 
 	</script>
 
