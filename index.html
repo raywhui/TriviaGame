@@ -18,10 +18,14 @@
 		<div class="answers a4 not-results">d</div>
 	</div>
 	<script>
+
+$(document).ready(function(){
+
 		var correct = 0;
 		var incorrect = 0;
 		var time = 30; //change to 30 when done, 5 for debug
 		$('.timer').html(time);
+
 		//Question 1
 		var question1 = {
 			q: 'Which character does Beth shoot in the episode "Total Rickall"?',
@@ -103,6 +107,7 @@
 		};
 		//Question+Answer Switcher
 		var qCount = 0;
+
 		function qaSwitcher(){
 			question1 = question2;
 			question2 = question3;
@@ -111,7 +116,6 @@
 			question5 = question6;
 			question6 = question7;
 			question7 = question8;
-			qCount++;
 		};
 		
 		//nested array?
@@ -139,18 +143,19 @@
 			console.log("sweet");
 
 		};
-		
+
 		function timerReset(){ //loop to run timer to 0, then wait few seconds to start countdown all over again. AKA recursive function
 			htmlReplacer(question1.q, question1.a1, question1.a2, question1.a3, question1.a4, question1.ans); //1st question
 			console.log('htmlReplacer Activated');
 			console.log(question1.ans);
-			time = 10;  //change to 30 when done, 5 for debug
+			time = 5;  //change to 30 when done, 5 for debug
 			$('.timer').html(time);
 			//reveals questions and answers + hides results.
 			$('.display-results').css('display','none');
 			$('.not-results').css('display','block');
 			//setInterval(function executed,time)
-			var timeInterval = setInterval(myTimer,1000);
+			timeInterval = setInterval(myTimer,1000);
+		}; //timerReset()
 
 			function myTimer(){ //base timer, use myTimer(nextQuestion) to fill in future questions,answers, and results.
 				time--;
@@ -159,59 +164,78 @@
 				//conditional to end timer
 				//sets delay until recursion
 
-
-				$('.answers').on('click', function(){
-					console.log("YEEZYYEEZy");
-					//checks if correct answer
-					if(($(this)[0].innerHTML || $(this)[1].innerHTML || $(this)[2].innerHTML || $(this)[3].innerHTML) === question1.ans){
-						clearInterval(timeInterval);
-						correct++;
-						console.log('correct!@!@#!@#');
-						$('.display-results').html("Good job, Morty.");
-						var fiveSec= setTimeout(timerReset,3000);
-
-						//resultScreen
-						resultScreen();
-					}
-					else{
-						$('.display-results').html("You suck. Correct Answer is " + question1.ans);
-							clearInterval(timeInterval);
-							incorrect++;
-							var fiveSec=setTimeout(timerReset,3000);
-							//resultScreen
-							resultScreen();
-					}
-				});//$('.answer').on('click'
-
 				if (time === 0){//Final results screen after all questions done
 					clearInterval(timeInterval);
 					incorrect++;
 					$('.display-results').html("Correct Answer is " + question1.ans);//replace inside html with text that fills in blank with correct answer.
 
-					var fiveSec=setTimeout(timerReset,3000);
+					var fiveSec=setTimeout(timerReset,1000);
+					qCount++;
 
 					//resultScreen()
 					resultScreen();
-					
-				}; //if(time === 0) 
-
+				} //if(time === 0) 
 				if (qCount === 8){ 
 					clearInterval(timeInterval);
 					clearTimeout(fiveSec)
 					$('.display-results').html(
-							"<h1> Final Results: </h1>" +
-							"<p> Ricks: " + correct + "</p>" +
-							"<p> Mortys: " + incorrect + "</p>");
-					$('.reset-btn').css("display","none");
+					"<h1> Final Results: </h1>" +
+					"<p> Ricks: " + correct + "</p>" +
+					"<p> Mortys: " + incorrect + "</p>");
+					$('.reset-btn').css("display","block");
 					console.log('yaay');
-				} 
-
-				
+				} 	
 			}; //myTimer()
-		}; //timerReset()
 
-		timerReset(); //Initiates timer
-		
+
+	$('.answers').on('click', function(){
+		console.log("YEEZYYEEZy");
+		//checks if correct answer
+		if(($(this)[0].innerHTML || $(this)[1].innerHTML || $(this)[2].innerHTML || $(this)[3].innerHTML) === question1.ans){
+			clearInterval(timeInterval);
+			correct++;
+			console.log('correct!@!@#!@#');
+			$('.display-results').html("Good job, Morty.");
+			var fiveSec= setTimeout(timerReset,1000); //change to 5000
+			qCount++;
+
+			//resultScreen
+			resultScreen();
+		}
+		else{
+			$('.display-results').html("You suck. Correct Answer is " + question1.ans);
+				clearInterval(timeInterval);
+				incorrect++;
+				console.log('WRONG!@!@#!@#');
+				var fiveSec=setTimeout(timerReset,1000);//change to 5000
+				//resultScreen
+				resultScreen();
+				qCount++;
+		}
+
+
+		if (qCount === 8){ 
+			clearInterval(timeInterval);
+			clearTimeout(fiveSec)
+			$('.display-results').html(
+					"<h1> Final Results: </h1><br>" +
+					"<p> Ricks: " + correct + "</p>" +
+					"<p> Mortys: " + incorrect + "</p>");
+			$('.reset-btn').css("display","block");
+			console.log('yaay');
+		} 
+	});//$('.answer').on('click'
+
+			$('.reset-btn').on('click', function(){
+				timerReset();
+			});
+			
+timerReset();	
+});	//document ready	
+
+	 //function reset
+
+
 		//function() vs just function. immediate execution? https://stackoverflow.com/questions/11837562/javascript-settimeout-wont-wait-to-execute
 		//create 2 onclicks, one for incorrect answers, the other for the correct answer. prob add a class to the correct answer then remove it
 			//adds class, removes itself later
