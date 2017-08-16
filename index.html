@@ -22,7 +22,6 @@
 		var incorrect = 0;
 		var time = 30; //change to 30 when done, 5 for debug
 		$('.timer').html(time);
-
 		//Question 1
 		var question1 = {
 			q: 'Which character does Beth shoot in the episode "Total Rickall"?',
@@ -32,10 +31,8 @@
 		  a4: "Squanchy",
 		  ans: "Mr.Poopybutthole"
 		};
-
 		
 		console.log(question1);
-
 		//Question 2
 		var question2 = {
 		  q:'Which universe are Rick and Morty originally from?',
@@ -47,7 +44,6 @@
 		};
 		
 		console.log(question2);
-
 		//Question 3
 		var question3 = {
 		 q:'What show was the character Mr.Jellybean based on?',
@@ -57,10 +53,7 @@
 		 a4:'The Adventures of Doc and Marty',
 		 ans:'Unbelieveable Tales!'
 		};
-
 		console.log(question3);
-
-
 		//Question 4
 		var question4 = {
 		  q: "What does Rick's catchphrase 'Wubba Lubba Dub Dub' mean?",
@@ -70,7 +63,6 @@
 		  a4: 'I am in great pain. Please help me.',//correct
 		  ans:'I am in great pain. Please help me.'
 		};
-
 		console.log(question4);
 		
 		//Question 5
@@ -82,7 +74,6 @@
 			a4: "Ralph Lauren",
 			ans: "Marc Jacobs"
 		};
-
 		//Question 6
 		var question6 = {
 			q: 'In the episode "A Rickle in Time", what unit of measure does Rick use to tell the difference between Morty and Summer?',
@@ -92,7 +83,6 @@
 			a4: "Pieces of shit",
 			ans: "Pain in my ass"
 		};
-
 		//Question 7
 		var question7 = {
 			q: 'What game does Rick and Morty play after receiving 3000 Flurbos in the episode "Mortynight Run"?',
@@ -102,7 +92,6 @@
 			a4: "Krombopulos Michael",
 			ans: "Roy: A Life Well Lived"		
 		};
-
 		//Question 8
 		var question8 = {
 			q: "What is my purpose?",
@@ -112,7 +101,6 @@
 			a4: "I am not programmed for friendship.",
 			ans: "You pass butter."			
 		};
-
 		//Question+Answer Switcher
 		var qCount = 0;
 		function qaSwitcher(){
@@ -130,11 +118,8 @@
 		//possible nested for loop to push previous array into other array?
 			// for (var i = qaArray.length-1; i >= 0; i--) {
 			// 	qaArray[i] = nextArray[i];
-
 			// 	//check to see if list changes or breaks.
 			// }
-
-
 		//generates new questions and answers
 		function htmlReplacer(v,w,x,y,z){
 			$('.question-box').html(v);   //x is replacing text
@@ -144,7 +129,6 @@
 			$('.a4').html(z);
 		}
 
-		var resultsOnOff
 		//Results screen
 		function resultScreen(){
 			qaSwitcher();
@@ -154,21 +138,17 @@
 			$('.not-results').css('display','none');
 			console.log("sweet");
 
-			resultsOnOff = setTimeout(timerReset,5000);//sets delay until recursion
 		};
 		
-
 		function timerReset(){ //loop to run timer to 0, then wait few seconds to start countdown all over again. AKA recursive function
 			htmlReplacer(question1.q, question1.a1, question1.a2, question1.a3, question1.a4, question1.ans); //1st question
 			console.log('htmlReplacer Activated');
 			console.log(question1.ans);
-			time = 5;  //change to 30 when done, 5 for debug
+			time = 10;  //change to 30 when done, 5 for debug
 			$('.timer').html(time);
-
 			//reveals questions and answers + hides results.
 			$('.display-results').css('display','none');
 			$('.not-results').css('display','block');
-
 			//setInterval(function executed,time)
 			var timeInterval = setInterval(myTimer,1000);
 
@@ -176,69 +156,66 @@
 				time--;
 				console.log('Countdown: ' + time);
 				$('.timer').html(time);
-
 				//conditional to end timer
-				if (time === 0){
+				//sets delay until recursion
+
+
+				$('.answers').on('click', function(){
+					console.log("YEEZYYEEZy");
+					//checks if correct answer
+					if(($(this)[0].innerHTML || $(this)[1].innerHTML || $(this)[2].innerHTML || $(this)[3].innerHTML) === question1.ans){
+						clearInterval(timeInterval);
+						correct++;
+						console.log('correct!@!@#!@#');
+						$('.display-results').html("Good job, Morty.");
+						var fiveSec= setTimeout(timerReset,3000);
+
+						//resultScreen
+						resultScreen();
+					}
+					else{
+						$('.display-results').html("You suck. Correct Answer is " + question1.ans);
+							clearInterval(timeInterval);
+							incorrect++;
+							var fiveSec=setTimeout(timerReset,3000);
+							//resultScreen
+							resultScreen();
+					}
+				});//$('.answer').on('click'
+
+				if (time === 0){//Final results screen after all questions done
 					clearInterval(timeInterval);
 					incorrect++;
-					$('.display-results').html("Correct Answer is " + question1.ans); //replace inside html with text that fills in blank with correct answer.
-					resultScreen();
+					$('.display-results').html("Correct Answer is " + question1.ans);//replace inside html with text that fills in blank with correct answer.
 
+					var fiveSec=setTimeout(timerReset,3000);
+
+					//resultScreen()
+					resultScreen();
+					
 				}; //if(time === 0) 
 
-				//Final results screen after all questions done
 				if (qCount === 8){ 
-					clearTimeout(resultsOnOff);
+					clearInterval(timeInterval);
+					clearTimeout(fiveSec)
 					$('.display-results').html(
 							"<h1> Final Results: </h1>" +
 							"<p> Ricks: " + correct + "</p>" +
 							"<p> Mortys: " + incorrect + "</p>");
 					$('.reset-btn').css("display","none");
 					console.log('yaay');
-				};
+				} 
 
+				
 			}; //myTimer()
 		}; //timerReset()
 
-
-		$(document).ready(function(){
-			$('.answers').on('click', function(){
-				console.log("YEEZYYEEZy");
-				//checks if correct answer
-				if(($(this)[0].innerHTML || $(this)[1].innerHTML || $(this)[2].innerHTML || $(this)[3].innerHTML) === question1.ans){
-					correct++;
-					console.log('correct!@!@#!@#');
-
-					$('.display-results').html("Good job, Morty.");
-					resultScreen();
-
-				}
-				else{
-					$('.display-results').html(". Correct Answer is " + question1.ans);
-						incorrect++;
-						resultScreen();
-				}
-
-
-			});//$('.answer').on('click'
-		});
-
-
-
 		timerReset(); //Initiates timer
-
-
 		
-
 		//function() vs just function. immediate execution? https://stackoverflow.com/questions/11837562/javascript-settimeout-wont-wait-to-execute
-
 		//create 2 onclicks, one for incorrect answers, the other for the correct answer. prob add a class to the correct answer then remove it
 			//adds class, removes itself later
-
 		//possibly bubblesort the questions into the variables?
-
-
-
 	</script>
 
 </body>
