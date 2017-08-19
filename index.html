@@ -2,245 +2,99 @@
 <html>
 <head>
 	<title>Rick and Morty Trivia Game</title>
+
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
+		<link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
 		<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 		<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+
 </head>
+	<image class='background-image' src='./assets/images-media/background_hipster.png'>
+	<image class='middle-finger' src='./assets/images-media/rick_and_morty_logo.png'>
 <body>
+	
+	<input type="file" id="thefile" accept="audio/*" />
+  <canvas class="canvas"></canvas>
+  <canvas class="canvas other-canvas"></canvas>
+  <audio id="audio"></audio>
+
 	<div class="container">
-		<div class="display-results" style="display:none">YEAHYAEHYAHFE</div>
-		<button class="reset-btn" style="display:none">Do it again.</button>
-		<div class="timer not-results"></div><br>
-		<div class="question-box not-results">???</div><br>
-		<div class="answers a1 not-results">a</div>
-		<div class="answers a2 not-results">b</div>
-		<div class="answers a3 not-results">c</div>
-		<div class="answers a4 not-results">d</div>
+
+	<!--top row-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="display-results" style="display:none">YEAHYAEHYAHFE</div>
+
+				<video id="reward" width="480" height="270">
+  				<source src="./assets/images-media/q8.mp4">
+				</video>
+
+				<button class="reset-btn" style="display:none">Do it again.</button>
+
+				<div class="not-results">Time: <span class="timer not-results"></span></div><br>
+			</div>
+		</div>
+
+<!--top row-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="question-box not-results">???</div><br>
+			</div>
+		</div>
+
+<!--top row-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="answers a1 not-results">a</div>
+			</div>
+		</div>
+
+<!--top row-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="answers a2 not-results">b</div>
+			</div>
+		</div>
+
+	<!--top row-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="answers a3 not-results">c</div>
+			</div>
+		</div>
+
+	<!--top row-->
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="answers a4 not-results">d</div>
+			</div>
+		</div>
+
+
+	</div><!--container-->
+
+<audio class="wronggg" style="display:none">
+  <source src="./assets/images-media/wrong.mp3" type="audio/ogg">
+</audio>
+
+<audio class="uncertainty" style="display:none">
+  <source src="./assets/images-media/uncertain.mp3" type="audio/ogg">
+</audio>
+
+<audio class="did-it" style="display:none">
+  <source src="./assets/images-media/right.mp3" type="audio/ogg">
+</audio>
+
+<audio class="trap" style="display:none" autoplay>
+  <source crossOrigin="anonymous" src="https://soundcloud.com/videogameremixes/rick-and-morty-theme-remix" type="audio/ogg">
+</audio>
+
+
+		<script src="./assets/javascript/app.js"></script>
+
+
+
 	</div>
-	<script>
-
-$(document).ready(function(){
-
-		var correct = 0;
-		var incorrect = 0;
-		var time = 30; //change to 30 when done, 5 for debug
-		$('.timer').html(time);
-
-		//Question 1
-		var question1 = {
-			q: 'Which character does Beth shoot in the episode "Total Rickall"?',
-			a1: "Rick", 
-			a2: "Jerry",
-			a3: "Mr.Poopybutthole", //correct
-		  a4: "Squanchy",
-		  ans: "Mr.Poopybutthole"
-		};
-		
-		console.log(question1);
-		//Question 2
-		var question2 = {
-		  q:'Which universe are Rick and Morty originally from?',
-		  a1: 'C-132',
-		  a2: 'C-137', //correct
-		  a3: 'D-99',
-		  a4: 'Microverse',
-		  ans: 'C-137'
-		};
-		
-		console.log(question2);
-		//Question 3
-		var question3 = {
-		 q:'What show was the character Mr.Jellybean based on?',
-		 a1:'Unbelieveable Tales!', //correct
-		 a2:'Mr.Bean',
-		 a3:'Back to the Future',
-		 a4:'The Adventures of Doc and Marty',
-		 ans:'Unbelieveable Tales!'
-		};
-		console.log(question3);
-		//Question 4
-		var question4 = {
-		  q: "What does Rick's catchphrase 'Wubba Lubba Dub Dub' mean?",
-		  a1: 'F*** you, God! Not today bitch!',
-		  a2: "I-I-I'll go out and find some more of that Mulan Szechuan teriyaki dipping sauce, Morty!",
-		  a3: 'Keep Summer safe.',
-		  a4: 'I am in great pain. Please help me.',//correct
-		  ans:'I am in great pain. Please help me.'
-		};
-		console.log(question4);
-		
-		//Question 5
-		var question5 = { 
-			q: 'What brand of top saves Summer and Rick in the episode "Raising Gazorpazorp"?',
-			a1: "Marc Jacobs", //correct
-			a2: "Versace",
-			a3: "Coco Chanel",
-			a4: "Ralph Lauren",
-			ans: "Marc Jacobs"
-		};
-		//Question 6
-		var question6 = {
-			q: 'In the episode "A Rickle in Time", what unit of measure does Rick use to tell the difference between Morty and Summer?',
-			a1: "Age",
-			a2: "Height",
-			a3: "Pain in my ass", //correct
-			a4: "Pieces of shit",
-			ans: "Pain in my ass"
-		};
-		//Question 7
-		var question7 = {
-			q: 'What game does Rick and Morty play after receiving 3000 Flurbos in the episode "Mortynight Run"?',
-			a1: "Meeseeks and Destroy",
-			a2: "Roy: A Life Well Lived", //correct
-			a3: "Blipz and Chitz",
-			a4: "Krombopulos Michael",
-			ans: "Roy: A Life Well Lived"		
-		};
-		//Question 8
-		var question8 = {
-			q: "What is my purpose?",
-			a1: "42",
-			a2: "You pass butter.", //correct
-			a3: "Welcome to the club, pal.",
-			a4: "I am not programmed for friendship.",
-			ans: "You pass butter."			
-		};
-		//Question+Answer Switcher
-		var qCount = 0;
-
-		function qaSwitcher(){
-			question1 = question2;
-			question2 = question3;
-			question3 = question4;
-			question4 = question5;
-			question5 = question6;
-			question6 = question7;
-			question7 = question8;
-		};
-		
-		//nested array?
-		//possible nested for loop to push previous array into other array?
-			// for (var i = qaArray.length-1; i >= 0; i--) {
-			// 	qaArray[i] = nextArray[i];
-			// 	//check to see if list changes or breaks.
-			// }
-		//generates new questions and answers
-		function htmlReplacer(v,w,x,y,z){
-			$('.question-box').html(v);   //x is replacing text
-			$('.a1').html(w);
-			$('.a2').html(x);
-			$('.a3').html(y);
-			$('.a4').html(z);
-		}
-
-		//Results screen
-		function resultScreen(){
-			qaSwitcher();
-			console.log('?#: ' + qCount);
-			//reveals results + hides questions and answers.
-			$('.display-results').css('display','block');
-			$('.not-results').css('display','none');
-			console.log("sweet");
-
-		};
-
-		function timerReset(){ //loop to run timer to 0, then wait few seconds to start countdown all over again. AKA recursive function
-			htmlReplacer(question1.q, question1.a1, question1.a2, question1.a3, question1.a4, question1.ans); //1st question
-			console.log('htmlReplacer Activated');
-			console.log(question1.ans);
-			time = 5;  //change to 30 when done, 5 for debug
-			$('.timer').html(time);
-			//reveals questions and answers + hides results.
-			$('.display-results').css('display','none');
-			$('.not-results').css('display','block');
-			//setInterval(function executed,time)
-			timeInterval = setInterval(myTimer,1000);
-		}; //timerReset()
-
-			function myTimer(){ //base timer, use myTimer(nextQuestion) to fill in future questions,answers, and results.
-				time--;
-				console.log('Countdown: ' + time);
-				$('.timer').html(time);
-				//conditional to end timer
-				//sets delay until recursion
-
-				if (time === 0){//Final results screen after all questions done
-					clearInterval(timeInterval);
-					incorrect++;
-					$('.display-results').html("Correct Answer is " + question1.ans);//replace inside html with text that fills in blank with correct answer.
-
-					var fiveSec=setTimeout(timerReset,1000);
-					qCount++;
-
-					//resultScreen()
-					resultScreen();
-				} //if(time === 0) 
-				if (qCount === 8){ 
-					clearInterval(timeInterval);
-					clearTimeout(fiveSec)
-					$('.display-results').html(
-					"<h1> Final Results: </h1>" +
-					"<p> Ricks: " + correct + "</p>" +
-					"<p> Mortys: " + incorrect + "</p>");
-					$('.reset-btn').css("display","block");
-					console.log('yaay');
-				} 	
-			}; //myTimer()
-
-
-	$('.answers').on('click', function(){
-		console.log("YEEZYYEEZy");
-		//checks if correct answer
-		if(($(this)[0].innerHTML || $(this)[1].innerHTML || $(this)[2].innerHTML || $(this)[3].innerHTML) === question1.ans){
-			clearInterval(timeInterval);
-			correct++;
-			console.log('correct!@!@#!@#');
-			$('.display-results').html("Good job, Morty.");
-			var fiveSec= setTimeout(timerReset,1000); //change to 5000
-			qCount++;
-
-			//resultScreen
-			resultScreen();
-		}
-		else{
-			$('.display-results').html("You suck. Correct Answer is " + question1.ans);
-				clearInterval(timeInterval);
-				incorrect++;
-				console.log('WRONG!@!@#!@#');
-				var fiveSec=setTimeout(timerReset,1000);//change to 5000
-				//resultScreen
-				resultScreen();
-				qCount++;
-		}
-
-
-		if (qCount === 8){ 
-			clearInterval(timeInterval);
-			clearTimeout(fiveSec)
-			$('.display-results').html(
-					"<h1> Final Results: </h1><br>" +
-					"<p> Ricks: " + correct + "</p>" +
-					"<p> Mortys: " + incorrect + "</p>");
-			$('.reset-btn').css("display","block");
-			console.log('yaay');
-		} 
-	});//$('.answer').on('click'
-
-			$('.reset-btn').on('click', function(){
-				timerReset();
-			});
-			
-timerReset();	
-});	//document ready	
-
-	 //function reset
-
-
-		//function() vs just function. immediate execution? https://stackoverflow.com/questions/11837562/javascript-settimeout-wont-wait-to-execute
-		//create 2 onclicks, one for incorrect answers, the other for the correct answer. prob add a class to the correct answer then remove it
-			//adds class, removes itself later
-		//possibly bubblesort the questions into the variables?
-	</script>
-
 </body>
 </html>
