@@ -233,7 +233,8 @@ $(document).ready(function(){
 			$('.display-results').html(
 					"<h1> Final Results: </h1><br>" +
 					"<p> Ricks: " + correct + "</p>" +
-					"<p> Mortys: " + incorrect + "</p>");
+					"<p> Mortys: " + incorrect + "</p>" +
+					"<p> Choose File 'theme.mp3' and Away We Go!");
 			$('.reset-btn').css("display","block");
 
 			var video = document.querySelector('#reward');
@@ -261,14 +262,14 @@ $(document).ready(function(){
 	}
 
 
-//timerReset();	
+timerReset();	
 });	//document ready	
 
-	// var rotate = document.querySelector('.other-canvas').getContext('2d');
- //  rotate.save();
-	// rotate.rotate(3.14);
-	// // draw your object
-	// rotate.restore();
+	 var rotate = document.querySelector('.other-canvas').getContext('2d');
+   rotate.save();
+	 rotate.rotate(3.14);
+ // draw your object
+	 rotate.restore();
 
 //audio visualizer NEED TO ASK HOW TO GET IT TO WORK WITHOUT UPLOADING.
 window.onload = function() {
@@ -276,7 +277,7 @@ window.onload = function() {
   var file = document.getElementById("thefile");
   var audio = document.getElementById("audio");
   
-  file.onchange = function() {
+  file.onchange = function(){
     var files = this.files;
     audio.src = URL.createObjectURL(files[0]);
     audio.load();
