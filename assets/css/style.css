@@ -106,8 +106,9 @@ body{
 
 .other-canvas{
 	position: absolute;
-	top: 62.3%;
+	top: 69.1%;
 	left:0;
+  z-index: -2
 }
 /*#analyser_render{
   position: fixed;

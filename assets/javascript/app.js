@@ -233,8 +233,7 @@ $(document).ready(function(){
 			$('.display-results').html(
 					"<h1> Final Results: </h1><br>" +
 					"<p> Ricks: " + correct + "</p>" +
-					"<p> Mortys: " + incorrect + "</p>" +
-					"<p> Choose File 'theme.mp3' and Away We Go!");
+					"<p> Mortys: " + incorrect + "</p>");
 			$('.reset-btn').css("display","block");
 
 			var video = document.querySelector('#reward');
@@ -272,6 +271,7 @@ timerReset();
 	 rotate.restore();
 
 //audio visualizer NEED TO ASK HOW TO GET IT TO WORK WITHOUT UPLOADING.
+//Created using https://codepen.io/awesomecoding/pen/rVBaab and http://www.developphp.com/video/JavaScript/Analyser-Bars-Animation-HTML-Audio-API-Tutorial
 window.onload = function() {
   
   var file = document.getElementById("thefile");
@@ -288,9 +288,16 @@ window.onload = function() {
     var analyser = context.createAnalyser();
 
     var canvas = document.querySelector(".canvas");
+    var canvas2 = document.querySelector(".other-canvas");
+    canvas2.style.transform = "rotate(180deg)";//flips bottom canvas
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    canvas2.width = window.innerWidth;
+    canvas2.height = window.innerHeight;
     var ctx = canvas.getContext("2d");
+    var ctx2 = canvas2.getContext("2d");
+    
+
 
     src.connect(analyser);
     analyser.connect(context.destination);
@@ -327,19 +334,25 @@ window.onload = function() {
         var g = 43;
         var b = 58;
 
-				//rgb(255,43,58) red try to make it blend to blue?
+				//rgb(255,43,58) red ... try to make it blend to blue?
+				//rgb(0,181,175) blue
 
-        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+        ctx.fillStyle = "rgb(" + (r-(i*5))+ "," + (g+(i*3)) + "," + (b+(i*2)) + ")";
         ctx.fillRect(x, HEIGHT - barHeight, barWidth, barHeight);
 
         x += barWidth + 1;
+
+				
+        ctx2.drawImage(canvas,0,0);
+
       }
     }
-
     audio.play();
     renderFrame();
-  };
+   
+	};
 };
+
 
 
 
